@@ -427,6 +427,9 @@
 <body>
   <canvas id="hearts" aria-hidden="true"></canvas>
 
+  <!-- ✅ Meow audio (upload meow.mp3 to the repo root) -->
+  <audio id="meowSound" src="meow.mp3" preload="auto"></audio>
+
   <div class="wrap">
     <header>
       <div class="brand">
@@ -456,7 +459,7 @@
           Tany, in the middle of everything, you feel like home calm, warm, and real.
           I love how you notice the little things, how you make ordinary days feel softer,
           and how being with you makes me want to be gentler with the world.
-          Since Nov 19, 2023, my life has had this quiet confidence in it 
+          Since Nov 19, 2023, my life has had this quiet confidence in it
           like no matter what happens, I have <i>you</i>. And I’m grateful for that every day.
         </p>
 
@@ -482,17 +485,20 @@
           <div class="catBlob" id="catBlob" role="button" tabindex="0" aria-label="Click the cat for a surprise">
             <div class="sparkle" aria-hidden="true"></div>
 
+            <!-- ✅ Calico cat SVG -->
             <svg class="catSVG" viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <defs>
                 <linearGradient id="fur" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stop-color="#FFE6EE"/>
+                  <stop offset="0" stop-color="#FFF2F6"/>
                   <stop offset="1" stop-color="#FFEAD8"/>
                 </linearGradient>
               </defs>
 
+              <!-- ears -->
               <path d="M140 120 C110 80, 90 70, 88 118 C86 155, 115 170, 140 160 Z" fill="url(#fur)" stroke="rgba(0,0,0,.06)" stroke-width="3"/>
               <path d="M280 120 C310 80, 330 70, 332 118 C334 155, 305 170, 280 160 Z" fill="url(#fur)" stroke="rgba(0,0,0,.06)" stroke-width="3"/>
 
+              <!-- head -->
               <path d="M210 90
                        C120 90, 80 155, 80 225
                        C80 315, 135 350, 210 350
@@ -501,14 +507,25 @@
                     fill="url(#fur)"
                     stroke="rgba(0,0,0,.06)" stroke-width="4"/>
 
+              <!-- calico patches -->
+              <path d="M122 165 C140 140, 185 132, 205 150 C225 168, 212 210, 180 220 C145 231, 112 200, 122 165 Z"
+                    fill="rgba(255,154,72,.85)"/>
+              <path d="M245 140 C278 125, 312 150, 305 185 C298 220, 258 228, 240 206 C225 186, 222 151, 245 140 Z"
+                    fill="rgba(60,45,55,.72)"/>
+              <path d="M275 118 C292 98, 312 102, 315 122 C318 145, 296 152, 280 144 Z"
+                    fill="rgba(255,154,72,.6)"/>
+
+              <!-- cheeks blush -->
               <circle cx="140" cy="250" r="24" fill="rgba(255,122,166,.18)"/>
               <circle cx="280" cy="250" r="24" fill="rgba(255,122,166,.18)"/>
 
+              <!-- eyes -->
               <ellipse cx="155" cy="215" rx="14" ry="18" fill="#2b2b2b"/>
               <ellipse cx="265" cy="215" rx="14" ry="18" fill="#2b2b2b"/>
               <circle cx="150" cy="208" r="4" fill="#fff"/>
               <circle cx="260" cy="208" r="4" fill="#fff"/>
 
+              <!-- nose -->
               <path d="M210 238
                        c-10 0-18 6-18 14
                        c0 11 10 16 18 16
@@ -516,6 +533,7 @@
                        c0-8-8-14-18-14Z"
                     fill="rgba(255,79,139,.85)"/>
 
+              <!-- mouth -->
               <path d="M210 260
                        c-18 0-30 10-30 24
                        c0 18 22 28 30 28
@@ -524,6 +542,7 @@
                     fill="rgba(255,255,255,.75)"
                     stroke="rgba(0,0,0,.06)" stroke-width="3"/>
 
+              <!-- heart collar tag -->
               <path d="M210 320
                        c-14-10-24-18-24-30
                        c0-12 9-20 19-20
@@ -658,7 +677,22 @@
     function catSurprise(){
       const line = CONFIG.meowLines[meowIndex % CONFIG.meowLines.length];
       meowIndex++;
+
       $("#meowPill").textContent = line;
+
+      // ✅ Play cute meow sound (requires user gesture; works on tap/click)
+      const meow = document.getElementById("meowSound");
+      if (meow) {
+        try {
+          meow.volume = 0.55;      // softer
+          meow.currentTime = 0;    // restart
+          meow.play();
+        } catch (e) {
+          // If browser blocks autoplay, it will still work after a user tap.
+          console.log("Meow play blocked:", e);
+        }
+      }
+
       burstHearts(10);
       nudgeCat();
     }
@@ -793,5 +827,3 @@
   </script>
 </body>
 </html>
-
-
