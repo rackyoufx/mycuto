@@ -1,0 +1,795 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>mycuto — for Tany Cuto</title>
+  <meta name="description" content="A cute, modern cat-themed Valentine’s Day site for Tany Cuto." />
+
+  <style>
+    :root{
+      --bg1:#fff6f8;   /* blush cream */
+      --bg2:#fff1e6;   /* warm peach cream */
+      --card:#ffffffcc;
+      --ink:#2b2b2b;
+      --muted:#6d5c60;
+      --pink:#ff7aa6;
+      --rose:#ff4f8b;
+      --cream:#fff0df;
+      --latte:#f2d2c4;
+      --line:#f3c6d6;
+
+      --shadow: 0 18px 45px rgba(255, 79, 139, .12);
+      --radius: 22px;
+
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: var(--font);
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 800px at 20% 10%, var(--bg2), transparent 60%),
+        radial-gradient(1200px 800px at 80% 0%, #ffe7ef, transparent 55%),
+        radial-gradient(1200px 800px at 50% 100%, #ffe9d8, transparent 60%),
+        linear-gradient(180deg, var(--bg1), #fff);
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.12;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cg fill='%23ff7aa6'%3E%3Ccircle cx='35' cy='32' r='8'/%3E%3Ccircle cx='58' cy='24' r='7'/%3E%3Ccircle cx='80' cy='32' r='8'/%3E%3Ccircle cx='50' cy='52' r='15'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 140px 140px;
+      filter: blur(.2px);
+    }
+
+    .wrap{
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 26px 18px 70px;
+      position:relative;
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      padding: 6px 4px 18px;
+      flex-wrap:wrap;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      user-select:none;
+    }
+    .logo{
+      width: 44px; height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--pink), var(--rose));
+      box-shadow: var(--shadow);
+      display:grid;
+      place-items:center;
+      color:#fff;
+      position:relative;
+      overflow:hidden;
+    }
+    .logo::after{
+      content:"";
+      position:absolute;
+      inset:-30%;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.8), transparent 45%);
+      transform: rotate(18deg);
+    }
+    .logo svg{ position:relative; z-index:1; }
+
+    .brand h1{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:.2px;
+    }
+    .brand small{
+      display:block;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 2px;
+      font-size: 12px;
+    }
+
+    .chip{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: #ffffffb8;
+      border: 1px solid #ffffff;
+      box-shadow: 0 10px 30px rgba(0,0,0,.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      font-size: 12.5px;
+      color: var(--muted);
+      white-space:nowrap;
+    }
+    .dot{
+      width:8px;height:8px;border-radius:99px;
+      background: var(--rose);
+      box-shadow: 0 0 0 4px rgba(255,79,139,.18);
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      align-items: stretch;
+      margin-top: 6px;
+    }
+
+    .card{
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      overflow:hidden;
+      position:relative;
+    }
+    .card.pad{ padding: 22px; }
+
+    .headline{
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.08;
+      letter-spacing: -0.5px;
+    }
+
+    .subline{
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.6;
+      max-width: 60ch;
+    }
+
+    .tagRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      margin: 14px 0 6px;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap: 7px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid rgba(255, 122, 166, .22);
+      color: #5b3a43;
+      font-size: 12.5px;
+    }
+    .tag .paw{
+      width: 16px; height: 16px;
+      display:grid; place-items:center;
+      border-radius: 6px;
+      background: rgba(255, 122, 166, .15);
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .btn{
+      appearance:none;
+      border: none;
+      cursor:pointer;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing:.2px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+      user-select:none;
+    }
+    .btn:active{ transform: translateY(1px) scale(.99); }
+
+    .btn.primary{
+      background: linear-gradient(135deg, var(--rose), var(--pink));
+      color:#fff;
+      box-shadow: 0 14px 35px rgba(255,79,139,.22);
+    }
+    .btn.secondary{
+      background:#fff;
+      color:#5b3a43;
+      border: 1px solid rgba(255,122,166,.28);
+      box-shadow: 0 10px 25px rgba(0,0,0,.05);
+    }
+
+    .rightCol{
+      display:grid;
+      gap: 18px;
+      height:100%;
+    }
+
+    .catCard{
+      padding: 18px 18px 14px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      min-height: 270px;
+    }
+
+    .catBlob{
+      width: 100%;
+      aspect-ratio: 1.1/1;
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 30% 25%, rgba(255,255,255,.85), transparent 40%),
+        linear-gradient(135deg, #ffe0ea, #ffe8d8);
+      border: 1px solid rgba(255,255,255,.9);
+      display:grid;
+      place-items:center;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .catBlob .sparkle{
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255,79,139,.18), transparent 40%),
+        radial-gradient(circle at 70% 60%, rgba(255,122,166,.16), transparent 45%);
+      mix-blend-mode:multiply;
+      animation: floaty 5.2s ease-in-out infinite;
+    }
+
+    @keyframes floaty{
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .catSVG{
+      width:min(240px, 72%);
+      height:auto;
+      filter: drop-shadow(0 18px 20px rgba(0,0,0,.07));
+      animation: catBob 3.8s ease-in-out infinite;
+    }
+    @keyframes catBob{
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .catHint{
+      margin: 12px 2px 0;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.45;
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      align-items:center;
+    }
+
+    .pill{
+      font-size: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px dashed rgba(255,79,139,.35);
+      color: #6b3b4a;
+      white-space:nowrap;
+    }
+
+    .counterCard{
+      padding: 18px;
+      display:grid;
+      gap: 10px;
+    }
+    .counterTop{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap: 10px;
+    }
+    .counterTop h3{
+      margin:0;
+      font-size: 14px;
+      letter-spacing:.2px;
+      color:#5b3a43;
+    }
+    .counterTop p{
+      margin:4px 0 0;
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .counter{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .unit{
+      background:#fff;
+      border: 1px solid rgba(255,122,166,.2);
+      border-radius: 16px;
+      padding: 12px 10px;
+      text-align:center;
+      box-shadow: 0 10px 22px rgba(0,0,0,.04);
+    }
+    .unit b{
+      display:block;
+      font-size: 20px;
+      letter-spacing:-.3px;
+    }
+    .unit span{
+      display:block;
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    footer{
+      margin-top: 18px;
+      text-align:center;
+      color: var(--muted);
+      font-size: 12.5px;
+      padding: 10px 4px 0;
+    }
+
+    .modalBackdrop{
+      position: fixed;
+      inset:0;
+      background: rgba(0,0,0,.25);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 50;
+    }
+    .modal{
+      width:min(560px, 100%);
+      border-radius: 22px;
+      background: #fff;
+      border: 1px solid rgba(255,122,166,.25);
+      box-shadow: 0 25px 80px rgba(0,0,0,.22);
+      overflow:hidden;
+      transform: translateY(8px) scale(.98);
+      opacity:0;
+      transition: transform .18s ease, opacity .18s ease;
+    }
+    .modalHeader{
+      padding: 16px 18px;
+      background: linear-gradient(135deg, #ffe7ef, #fff1e6);
+      border-bottom: 1px solid rgba(255,122,166,.18);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .modalHeader h4{
+      margin:0;
+      font-size: 14px;
+      color:#5b3a43;
+    }
+    .closeBtn{
+      border:none;
+      background:#fff;
+      border-radius: 12px;
+      padding: 10px 12px;
+      cursor:pointer;
+      font-weight:800;
+      color:#6b3b4a;
+      border: 1px solid rgba(255,122,166,.25);
+    }
+    .modalBody{
+      padding: 18px;
+      color:#3b2b30;
+      line-height:1.65;
+      font-size: 15px;
+    }
+    .modalBody .sig{
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .modalBackdrop.show{ display:flex; }
+    .modalBackdrop.show .modal{ transform: translateY(0) scale(1); opacity:1; }
+
+    canvas#hearts{
+      position: fixed;
+      inset: 0;
+      pointer-events:none;
+      z-index: 5;
+    }
+
+    @media (max-width: 860px){
+      .hero{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="hearts" aria-hidden="true"></canvas>
+
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M7.2 10.2c1 0 1.8-.95 1.8-2.1S8.2 6 7.2 6 5.4 6.95 5.4 8.1s.8 2.1 1.8 2.1Zm9.6 0c1 0 1.8-.95 1.8-2.1S17.8 6 16.8 6 15 6.95 15 8.1s.8 2.1 1.8 2.1ZM9.8 12.2c1 0 1.8-.95 1.8-2.1S10.8 8 9.8 8 8 8.95 8 10.1s.8 2.1 1.8 2.1Zm4.4 0c1 0 1.8-.95 1.8-2.1S15.2 8 14.2 8s-1.8.95-1.8 2.1.8 2.1 1.8 2.1Z" fill="rgba(255,255,255,.9)"/>
+            <path d="M12 21c-3.1 0-6-2.2-6-5 0-2.3 2.3-4 6-4s6 1.7 6 4c0 2.8-2.9 5-6 5Z" fill="rgba(255,255,255,.95)"/>
+          </svg>
+        </div>
+        <div>
+          <h1>mycuto</h1>
+          <small>for Tany Cuto • from Rachi</small>
+        </div>
+      </div>
+
+      <div class="chip" title="Made with soft paws & softer feelings">
+        <span class="dot"></span>
+        <span><b id="dayLabel">Happy Valentine’s Day</b> • pawprints included</span>
+      </div>
+    </header>
+
+    <main class="hero">
+      <section class="card pad">
+        <h2 class="headline">Tany Cuto, you’re my favorite kind of forever. 🐾</h2>
+
+        <p class="subline" id="loveMessage">
+          Tany, in the middle of everything, you feel like home — calm, warm, and real.
+          I love how you notice the little things, how you make ordinary days feel softer,
+          and how being with you makes me want to be gentler with the world.
+          Since Nov 19, 2023, my life has had this quiet confidence in it —
+          like no matter what happens, I have <i>you</i>. And I’m grateful for that every day.
+        </p>
+
+        <div class="tagRow" aria-label="Cute cat-themed elements">
+          <span class="tag"><span class="paw">🐾</span> i’m feline lucky (it’s you)</span>
+          <span class="tag"><span class="paw">😺</span> you’re pawsitively perfect</span>
+          <span class="tag"><span class="paw">💗</span> purr & forever</span>
+          <span class="tag"><span class="paw">✨</span> tiny surprises included</span>
+        </div>
+
+        <div class="actions">
+          <button class="btn primary" id="surpriseBtn" type="button">💌 Surprise note</button>
+          <button class="btn secondary" id="sparkleBtn" type="button">✨ Add extra sparkles</button>
+        </div>
+
+        <footer>
+          Tip: tap the kitty on the right for a tiny “meowgical” surprise.
+        </footer>
+      </section>
+
+      <aside class="rightCol">
+        <section class="card catCard">
+          <div class="catBlob" id="catBlob" role="button" tabindex="0" aria-label="Click the cat for a surprise">
+            <div class="sparkle" aria-hidden="true"></div>
+
+            <svg class="catSVG" viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="fur" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#FFE6EE"/>
+                  <stop offset="1" stop-color="#FFEAD8"/>
+                </linearGradient>
+              </defs>
+
+              <path d="M140 120 C110 80, 90 70, 88 118 C86 155, 115 170, 140 160 Z" fill="url(#fur)" stroke="rgba(0,0,0,.06)" stroke-width="3"/>
+              <path d="M280 120 C310 80, 330 70, 332 118 C334 155, 305 170, 280 160 Z" fill="url(#fur)" stroke="rgba(0,0,0,.06)" stroke-width="3"/>
+
+              <path d="M210 90
+                       C120 90, 80 155, 80 225
+                       C80 315, 135 350, 210 350
+                       C285 350, 340 315, 340 225
+                       C340 155, 300 90, 210 90 Z"
+                    fill="url(#fur)"
+                    stroke="rgba(0,0,0,.06)" stroke-width="4"/>
+
+              <circle cx="140" cy="250" r="24" fill="rgba(255,122,166,.18)"/>
+              <circle cx="280" cy="250" r="24" fill="rgba(255,122,166,.18)"/>
+
+              <ellipse cx="155" cy="215" rx="14" ry="18" fill="#2b2b2b"/>
+              <ellipse cx="265" cy="215" rx="14" ry="18" fill="#2b2b2b"/>
+              <circle cx="150" cy="208" r="4" fill="#fff"/>
+              <circle cx="260" cy="208" r="4" fill="#fff"/>
+
+              <path d="M210 238
+                       c-10 0-18 6-18 14
+                       c0 11 10 16 18 16
+                       c8 0 18-5 18-16
+                       c0-8-8-14-18-14Z"
+                    fill="rgba(255,79,139,.85)"/>
+
+              <path d="M210 260
+                       c-18 0-30 10-30 24
+                       c0 18 22 28 30 28
+                       c8 0 30-10 30-28
+                       c0-14-12-24-30-24Z"
+                    fill="rgba(255,255,255,.75)"
+                    stroke="rgba(0,0,0,.06)" stroke-width="3"/>
+
+              <path d="M210 320
+                       c-14-10-24-18-24-30
+                       c0-12 9-20 19-20
+                       c6 0 10 3 13 7
+                       c3-4 7-7 13-7
+                       c10 0 19 8 19 20
+                       c0 12-10 20-24 30
+                       Z"
+                    fill="rgba(255,79,139,.9)"
+                    stroke="rgba(0,0,0,.06)" stroke-width="3"/>
+            </svg>
+          </div>
+
+          <div class="catHint">
+            <span>soft paws, softer hearts</span>
+            <span class="pill" id="meowPill">tap for a meow 💗</span>
+          </div>
+        </section>
+
+        <section class="card counterCard" aria-label="Love counter">
+          <div class="counterTop">
+            <div>
+              <h3>Our little love counter</h3>
+              <p>Counting from <b>19 Nov 2023</b>.</p>
+            </div>
+            <span class="pill" title="Editable date in the CONFIG section">⏳</span>
+          </div>
+
+          <div class="counter" id="counter">
+            <div class="unit"><b id="days">0</b><span>days</span></div>
+            <div class="unit"><b id="hours">0</b><span>hours</span></div>
+            <div class="unit"><b id="mins">0</b><span>mins</span></div>
+            <div class="unit"><b id="secs">0</b><span>secs</span></div>
+          </div>
+
+          <div class="tagRow" style="margin-top:2px;">
+            <span class="tag"><span class="paw">🐱</span> “you + me” is my favorite story</span>
+          </div>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <div class="modalBackdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-label="Surprise message">
+    <div class="modal">
+      <div class="modalHeader">
+        <h4>For Tany Cuto 💌</h4>
+        <button class="closeBtn" id="closeModal" type="button">Close</button>
+      </div>
+      <div class="modalBody" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    const CONFIG = {
+      loveStart: new Date("2023-11-19T00:00:00"),
+      herName: "Tany Cuto",
+      fromName: "Rachi",
+      surpriseNotes: [
+        "If I could give you one thing, it would be the ability to see yourself the way I see you — kind, rare, and quietly powerful.",
+        "I don’t need perfect days. I just want the real ones — with you, with laughter, with small comforts, with our little rituals.",
+        "Whenever you’re tired, I hope you remember: I’m on your team. Always. No questions, no conditions — just us.",
+        "You make my heart feel lighter. And somehow, you make me feel more like myself."
+      ],
+      meowLines: [
+        "meow = i love you 🐾",
+        "purr purr… you’re adored 💗",
+        "head boop = forever 😺",
+        "soft paw tap = kisses 💞"
+      ]
+    };
+
+    const $ = (q, el=document) => el.querySelector(q);
+
+    (function updateDayLabel(){
+      const now = new Date();
+      const isVday = (now.getMonth() === 1 && now.getDate() === 14);
+      $("#dayLabel").textContent = isVday ? "Happy Valentine’s Day" : "A little love, any day";
+    })();
+
+    function tickCounter(){
+      const now = new Date();
+      let diff = now - CONFIG.loveStart;
+      if (diff < 0) diff = 0;
+
+      const totalSeconds = Math.floor(diff / 1000);
+      const days = Math.floor(totalSeconds / (3600 * 24));
+      const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+      const mins = Math.floor((totalSeconds % 3600) / 60);
+      const secs = totalSeconds % 60;
+
+      $("#days").textContent = days.toString();
+      $("#hours").textContent = hours.toString().padStart(2, "0");
+      $("#mins").textContent = mins.toString().padStart(2, "0");
+      $("#secs").textContent = secs.toString().padStart(2, "0");
+    }
+    tickCounter();
+    setInterval(tickCounter, 1000);
+
+    let noteIndex = 0;
+    function openModal(html){
+      $("#modalBody").innerHTML = html;
+      $("#modalBackdrop").classList.add("show");
+      $("#closeModal").focus();
+    }
+    function closeModal(){
+      $("#modalBackdrop").classList.remove("show");
+    }
+
+    $("#surpriseBtn").addEventListener("click", () => {
+      const note = CONFIG.surpriseNotes[noteIndex % CONFIG.surpriseNotes.length];
+      noteIndex++;
+
+      const html = `
+        <p>Hey <b>${escapeHtml(CONFIG.herName)}</b>,</p>
+        <p>${escapeHtml(note)}</p>
+        <p class="sig">With all my love,<br/><b>${escapeHtml(CONFIG.fromName)}</b> 🐾</p>
+      `;
+      openModal(html);
+      burstHearts(18);
+    });
+
+    $("#closeModal").addEventListener("click", closeModal);
+    $("#modalBackdrop").addEventListener("click", (e) => {
+      if (e.target === $("#modalBackdrop")) closeModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeModal();
+    });
+
+    let meowIndex = 0;
+    function catSurprise(){
+      const line = CONFIG.meowLines[meowIndex % CONFIG.meowLines.length];
+      meowIndex++;
+      $("#meowPill").textContent = line;
+      burstHearts(10);
+      nudgeCat();
+    }
+
+    $("#catBlob").addEventListener("click", catSurprise);
+    $("#catBlob").addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        catSurprise();
+      }
+    });
+
+    function nudgeCat(){
+      const el = $(".catSVG");
+      el.animate(
+        [
+          { transform: "translateY(0) rotate(0deg)" },
+          { transform: "translateY(-6px) rotate(-2deg)" },
+          { transform: "translateY(0) rotate(0deg)" }
+        ],
+        { duration: 420, easing: "ease-out" }
+      );
+    }
+
+    const canvas = $("#hearts");
+    const ctx = canvas.getContext("2d");
+    const hearts = [];
+    let sparkleMode = false;
+
+    function resize(){
+      const dpr = Math.max(1, Math.floor(window.devicePixelRatio || 1));
+      canvas.width = Math.floor(window.innerWidth * dpr);
+      canvas.height = Math.floor(window.innerHeight * dpr);
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    function rand(min, max){ return Math.random() * (max - min) + min; }
+
+    function makeHeart(x, y){
+      return {
+        x, y,
+        vy: rand(0.6, 1.5),
+        vx: rand(-0.25, 0.25),
+        size: rand(10, 22),
+        rot: rand(-0.6, 0.6),
+        vr: rand(-0.01, 0.01),
+        life: rand(140, 240),
+        t: 0
+      };
+    }
+
+    function drawHeart(x, y, s, r, alpha){
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(r);
+      ctx.globalAlpha = alpha;
+
+      ctx.beginPath();
+      const k = s / 16;
+      ctx.moveTo(0, 6*k);
+      ctx.bezierCurveTo(0, 0, -10*k, 0, -10*k, 7*k);
+      ctx.bezierCurveTo(-10*k, 12*k, -5*k, 15*k, 0, 18*k);
+      ctx.bezierCurveTo(5*k, 15*k, 10*k, 12*k, 10*k, 7*k);
+      ctx.bezierCurveTo(10*k, 0, 0, 0, 0, 6*k);
+      ctx.closePath();
+
+      const g = ctx.createLinearGradient(-10*k, 0, 10*k, 18*k);
+      g.addColorStop(0, "rgba(255,79,139,0.95)");
+      g.addColorStop(1, "rgba(255,122,166,0.85)");
+      ctx.fillStyle = g;
+      ctx.fill();
+
+      if (sparkleMode){
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "rgba(255,255,255,0.75)";
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function loop(){
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      for (let i = hearts.length - 1; i >= 0; i--){
+        const h = hearts[i];
+        h.t++;
+        h.y -= h.vy;
+        h.x += h.vx + Math.sin(h.t / 22) * 0.25;
+        h.rot += h.vr;
+
+        const alpha = Math.max(0, 1 - (h.t / h.life));
+        drawHeart(h.x, h.y, h.size, h.rot, alpha);
+
+        if (h.t > h.life || h.y < -40) hearts.splice(i, 1);
+      }
+      requestAnimationFrame(loop);
+    }
+    loop();
+
+    function burstHearts(count=12){
+      const x = rand(40, window.innerWidth - 40);
+      const y = rand(window.innerHeight * 0.55, window.innerHeight * 0.75);
+      for (let i = 0; i < count; i++){
+        hearts.push(makeHeart(x + rand(-30, 30), y + rand(-15, 15)));
+      }
+    }
+
+    setInterval(() => {
+      if (hearts.length < 40){
+        hearts.push(makeHeart(rand(30, window.innerWidth - 30), window.innerHeight + 20));
+      }
+    }, 550);
+
+    $("#sparkleBtn").addEventListener("click", () => {
+      sparkleMode = !sparkleMode;
+      $("#sparkleBtn").textContent = sparkleMode ? "✨ Sparkles: ON" : "✨ Add extra sparkles";
+      burstHearts(14);
+    });
+
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, (c) => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+      }[c]));
+    }
+  </script>
+</body>
+</html>
